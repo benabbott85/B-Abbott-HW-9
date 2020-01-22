@@ -1,9 +1,10 @@
 const inquirer = require("inquirer");
 const fs = require("fs");
 // const employee = ("./employee.js");
-const Engineer = ("./engineer.js");
-const Manager = ("./manager.js");
-const Intern = ("./intern.js");
+const Engineer = require("./engineer.js");
+const Manager = require("./manager.js");
+const Intern = require("./intern.js");
+console.log(Engineer)
 
 const employeeArray = [];
 let headSection = [];
@@ -31,7 +32,7 @@ function askType() {
                 type: "list",
                 message: "What type of employee is being setup?",
                 name: "role",
-                choices: ["manager", "Engineer", "Intern"]
+                choices: ["Manager", "Engineer", "Intern"]
             }).then(function (response) {
                 if (response.role === "Manager") {
                     managerQuestions();
@@ -50,31 +51,31 @@ function managerQuestions() {
             {
                 type: "input",
                 message: "Enter Employees Name:",
-                name: "name"
+                name: "managerName"
             },
             {
                 type: "input",
                 message: "Enter Employee ID:",
-                name: "id"
+                name: "managerId"
             },
             {
                 type: "input",
                 message: "Enter Employee Email address:",
-                name: "email"
+                name: "managerEmail"
             },
             {
                 type: "input",
                 message: "Enter Employee office number:",
-                name: "officeNumber"
+                name: "managerOfficeNumber"
             },
             {
                 type: "list",
                 message: "Would you like to add another employee?",
-                name: "continue",
+                name: "managerContinue",
                 choices: ["yes", "no"]
             }
         ]).then(function (response) {
-            const manager = new Manager(response.name, response.id, response.email, response.officeNumber, response.continue);
+            const manager = new Manager(response.managerName, response.managerId, response.managerEmail, response.managerOfficeNumber, response.managerContinue);
             employeeArray.push(manager);
             if (response.continue === "no") {
                 afterPrompts();
@@ -94,33 +95,33 @@ function engineerQuestions() {
             {
                 type: "input",
                 message: "Enter Employee Name:",
-                name: "name"
+                name: "engineerName"
             },
             {
                 type: "input",
                 message: "Enter Employee ID:",
-                name: "id"
+                name: "engineerId"
             },
 
             {
                 type: "input",
                 message: "Enter Employee Email address",
-                name: "email"
+                name: "engineerEmail"
             },
             {
                 type: "input",
                 message: "Enter Employees Github username:",
-                name: "github"
+                name: "engineerGithub"
             },
             {
                 type: "list",
                 message: "Would you like to add another Employee?",
-                name: "continue",
+                name: "engineerContinue",
                 choices: ["yes", "no"]
             }
 
-        ]).then(function (response) {
-            const engineer = new Engineer(response.name, response.id, response.email, response.github);
+        ]).then( response => {
+            const engineer = new Engineer(response.engineerName, response.engineerId, response.engineerEmail, response.engineerGithub);
             employeeArray.push(engineer);
             console.log(employeeArray)
             if (response.continue === "no") {
@@ -138,32 +139,32 @@ function internQuestions() {
             {
                 type: "input",
                 messasge: "Enter Employee name:",
-                name: "name"
+                name: "internName"
             },
             {
                 type: "input",
                 message: "Enter Employee ID:",
-                name: "id"
+                name: "internId"
             },
             {
                 type: "input",
                 message: "Enter Employee Email address:",
-                name: "email"
+                name: "internEmail"
             },
             {
                 type: "input",
                 message: "Enter Interns School:",
-                name: "school"
+                name: "internSchool"
             },
             {
                 type: "list",
                 message: "Would you like to add another Employee?",
-                name: "continue",
+                name: "internContinue",
                 choices: ["yes", "no"]
             }
         ]).then(function (response) {
             console.log("hi")
-            const intern = new Intern(response.name, response.id, response.email, response.school, response.continue);
+            const intern = new Intern(response.internName, response.internId, response.internEmail, response.internSchool);
             employeeArray.push(intern);
             if (response.continue === "no") {
                 afterPrompts();

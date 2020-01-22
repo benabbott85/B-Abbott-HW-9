@@ -3,12 +3,12 @@
 // school
 // getSchool()
 // getRole() (Overridden to return 'Intern')
+const Employee = require("./Employee");
 
-class Intern {
+
+class Intern extends Employee {
     constructor (name, id, email, school){
-        this.name= name;
-        this.id = id;
-        this.email= email;
+        super (name, id, email)
         this.school= school;
     }
 

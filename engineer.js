@@ -3,6 +3,8 @@
 // github (GitHub username)
 // getGithub()
 // getRole() (Overridden to return 'Engineer')
+const Employee = require("./employee");
+
 class Engineer {
     constructor (name, id, email, github){
         this.name = name;
