@@ -5,11 +5,9 @@
 // getRole() (Overridden to return 'Engineer')
 const Employee = require("./employee");
 
-class Engineer {
+class Engineer extends Employee {
     constructor (name, id, email, github){
-        this.name = name;
-        this.id= id;
-        this.email= email;
+        super (name, id, email)
         this.github= github;
     }
 

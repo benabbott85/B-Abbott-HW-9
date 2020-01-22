@@ -5,7 +5,7 @@
   "main": "employee.js",
   "directores": {
     "test": "test"
-    },
+  },
   "scripts": {
     "test": "jest --verbose test/*"
   },

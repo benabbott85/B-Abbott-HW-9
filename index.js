@@ -1,16 +1,16 @@
 const inquirer = require("inquirer");
 const fs = require("fs");
-// const employee = ("./employee.js");
+const employee = ("./employee.js");
 const Engineer = require("./engineer.js");
 const Manager = require("./manager.js");
 const Intern = require("./intern.js");
-console.log(Engineer)
+// console.log(Engineer)
 
 const employeeArray = [];
 let headSection = [];
 
 function userInput() {
-    console.log("hi")
+    // console.log("hi")
     inquirer
         .prompt({
             type: "input",
@@ -77,7 +77,7 @@ function managerQuestions() {
         ]).then(function (response) {
             const manager = new Manager(response.managerName, response.managerId, response.managerEmail, response.managerOfficeNumber, response.managerContinue);
             employeeArray.push(manager);
-            if (response.continue === "no") {
+            if (response.managerContinue === "no") {
                 afterPrompts();
             } else {
 
@@ -87,7 +87,7 @@ function managerQuestions() {
 
 }
 
-userInput();
+
 
 function engineerQuestions() {
     inquirer
@@ -124,7 +124,7 @@ function engineerQuestions() {
             const engineer = new Engineer(response.engineerName, response.engineerId, response.engineerEmail, response.engineerGithub);
             employeeArray.push(engineer);
             console.log(employeeArray)
-            if (response.continue === "no") {
+            if (response.engineerContinue === "no") {
                 afterPrompts();
             } else {
                 askType();
@@ -163,92 +163,93 @@ function internQuestions() {
                 choices: ["yes", "no"]
             }
         ]).then(function (response) {
-            console.log("hi")
+            // console.log("hi")
             const intern = new Intern(response.internName, response.internId, response.internEmail, response.internSchool);
             employeeArray.push(intern);
-            if (response.continue === "no") {
+            if (response.internContinue === "no") {
                 afterPrompts();
             } else {
                 askType();
             }
         })
     }
+    
     function generateHTML(employeeArray) {
-        return `<!DOCTYPE html>
+        headSection.push(`<!DOCTYPE html>
         <html lang="en">
         
         <head>
-            <meta charset="UTF-8" />
-            <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-            <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-            <title>My Team</title>
-            <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-                integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-            <link rel="stylesheet" href="style.css">
-            <script src="https://kit.fontawesome.com/c502137733.js"></script>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <meta http-equiv="X-UA-Compatible" content="ie=edge">
+            <title>Team Page</title>
+            <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+                integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
         </head>
         
         <body>
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-12 jumbotron mb-3 team-heading">
-                        <h1 class="text-center">My Team ${employeeArray[0]}</h1>
-                    </div>
+            <div class="jumbotron jumbotron-fluid">
+                <div class="container">
+                    <h1 class="display-4">${employeeArray[0]}</h1>
                 </div>
             </div>
             <div class="container">
-                <div class="row">
-                    <div class="team-area col-12 d-flex justify-content-center">
-                        {{ team }}
-                    </div>
-                </div>
-            </div>
-
-            <div class="card employee-card">
-            <div class="card-header">
-                <h2 class="card-title">${employeeArray[i].name}</h2>
-                <h3 class="card-title"><i class="fas fa-glasses mr-2"></i>{${employeeArray[i].role}</h3>
-            </div>
-            <div class="card-body">
-                <ul class="list-group">
-                    <li class="list-group-item">ID: {{ id }}</li>
-                    <li class="list-group-item">Email: <a href="mailto:{{ email }}">${employeeArray[i].email}</a></li>
-                    <li class="list-group-item">GitHub: <a href="https://github.com/${employeeArray[i].github}" target="_blank" rel="noopener noreferrer">{{ github }}</a></li>
-                </ul>
-            </div>
-        </div>
+                <div class="row addCard">`);
     
-        <div class="card employee-card">
-    <div class="card-header">
-        <h2 class="card-title">${employeeArray[i].name}</h2>
-        <h3 class="card-title"><i class="fas fa-mug-hot mr-2"></i>${employeeArray[i].role}</h3>
-    </div>
-    <div class="card-body">
-        <ul class="list-group">
-            <li class="list-group-item">ID: ${employeeArray[i].id}</li>
-            <li class="list-group-item">Email: <a href="mailto:{{ email }}">${employeeArray[i].email}</a></li>
-            <li class="list-group-item">Office number: ${employeeArray[i].officeNumber}</li>
-        </ul>
-    </div>
-</div>
-<div class="card employee-card">
-    <div class="card-header">
-        <h2 class="card-title">${employeeArray[i].name}</h2>
-        <h3 class="card-title"><i class="fas fa-user-graduate mr-2"></i>${employeeArray[i].role}</h3>
-    </div>
-    <div class="card-body">
-        <ul class="list-group">
-            <li class="list-group-item">ID: ${employeeArray[i].id}</li>
-            <li class="list-group-item">Email: <a href="mailto:{{ email }}">${employeeArray[i].email}</a></li>
-            <li class="list-group-item">School: ${employeeArray[i].school}</li>
-        </ul>
-    </div>
-</div>
-
-        </body>
-        
-        </html>
-        `
+        for (var i = 1; i < employeeArray.length; i++) {
+            if (employeeArray[i].getRole() === "Manager") {
+                headSection.push(
+                    `<div class="col-md">
+                    <div class="card" style="width: 18rem;">
+                        <div class="card-body">
+                            <h5 class="card-title">${employeeArray[i].name}</h5>
+                            <h6 class="card-subtitle mb-2">${employeeArray[i].getRole()}</h6>
+                            <p class="card-text">ID: ${employeeArray[i].id}</p>
+                            <p>Email: <a href="${employeeArray[i].email}" class="card-link">${employeeArray[i].email}</a></p>
+                            <p>Office number: ${employeeArray[i].officeNumber}</p>
+                        </div>
+                    </div>
+                </div>`
+                );
+            } else if (employeeArray[i].getRole() === "Engineer") {
+                headSection.push(
+                    `<div class="col-md">
+                    <div class="card" style="width: 18rem;">
+                        <div class="card-body">
+                            <h5 class="card-title">${employeeArray[i].name}</h5>
+                            <h6 class="card-subtitle mb-2">${employeeArray[i].getRole()}</h6>
+                            <p class="card-text">ID: ${employeeArray[i].id}</p>
+                            <p>Email: <a href="${employeeArray[i].email}" class="card-link">${employeeArray[i].email}</a></p>
+                            <p>Email: <a href="github.com/${employeeArray[i].github}" class="card-link">${employeeArray[i].github}</a></p>
+                        </div>
+                    </div>
+                </div>`
+                );
+            } else {
+                headSection.push(
+                    `<div class="col-md">
+                        <div class="card" style="width: 18rem;">
+                            <div class="card-body">
+                                <h5 class="card-title">${employeeArray[i].name}</h5>
+                                <h6 class="card-subtitle mb-2">${employeeArray[i].getRole()}</h6>
+                                <p class="card-text">ID: ${employeeArray[i].id}</p>
+                                <p>Email: <a href="${employeeArray[i].email}" class="card-link">${employeeArray[i].email}</a></p>
+                                <p>School: ${employeeArray[i].school}</p>
+                            </div>
+                        </div>
+                    </div>`
+                )
+            }
+        }
+        headSection.push(
+            `</div>
+                    </div>
+                </body>
+                
+                </html>`
+        );
+        headSection.join("\n");
+        return headSection;
     }
 
 function afterPrompts(){
@@ -260,7 +261,7 @@ function afterPrompts(){
     })
 }
 
-console.log("Welcome to the team profile generator!")
+// console.log("Welcome to the team profile generator!")
 
 userInput();
 
